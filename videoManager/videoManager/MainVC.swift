@@ -10,6 +10,7 @@ import UIKit
 
 class MainVC: UIViewController {
 
+    @IBOutlet weak var tablevIEW: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
