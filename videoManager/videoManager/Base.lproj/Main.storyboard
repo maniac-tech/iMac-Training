@@ -102,7 +102,7 @@
                     </view>
                     <connections>
                         <outlet property="tablevIEW" destination="54L-b2-teJ" id="hYz-cA-z1R"/>
-                        <segue destination="NbU-LB-8rj" kind="show" identifier="" id="nWF-wf-Aeh"/>
+                        <segue destination="NbU-LB-8rj" kind="show" identifier="segue" id="nWF-wf-Aeh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
