@@ -16,15 +16,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Checking the authorization status of the map, required for the app:
+        
         self.manager.delegate = self
+        
+        // Checking the authorization status of the map, required for the app:
         if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse){
-            
+            self.mapView.showsUserLocation = true //this function shows the current location as blue stop on the map
+            self.manager.startUpdatingLocation() //it will start to look for updates on the location
         }
         else {
             //Requesting authorization when not found:
             self.manager.requestWhenInUseAuthorization()
         }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let region = MKCoordinateRegionMakeWithDistance(self.manager.location!, <#T##latitudinalMeters: CLLocationDistance##CLLocationDistance#>, <#T##longitudinalMeters: CLLocationDistance##CLLocationDistance#>)
     }
 
     override func didReceiveMemoryWarning() {
