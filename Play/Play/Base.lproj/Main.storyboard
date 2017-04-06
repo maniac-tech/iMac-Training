@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -19,13 +20,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="AEd-eA-xen"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZEi-Gx-fMs">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="NYy-O3-zXD"/>
+                                    <constraint firstAttribute="height" constant="46" id="kxO-QP-8R0"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="compass"/>
+                                <connections>
+                                    <action selector="userRecenter:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ke8-Fs-aRr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="AEd-eA-xen" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6nH-33-Mpz"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AEd-eA-xen" secondAttribute="bottom" id="GjE-Xz-Ft4"/>
-                            <constraint firstAttribute="trailing" secondItem="AEd-eA-xen" secondAttribute="trailing" id="gkx-t6-sDb"/>
-                            <constraint firstItem="AEd-eA-xen" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="r4N-58-G01"/>
+                            <constraint firstItem="AEd-eA-xen" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="7Qf-58-JbH"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ZEi-Gx-fMs" secondAttribute="bottom" constant="20" id="Bei-RT-Dga"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="AEd-eA-xen" secondAttribute="bottom" id="IhW-ST-e0W"/>
+                            <constraint firstItem="ZEi-Gx-fMs" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="QoC-Bc-FJH"/>
+                            <constraint firstItem="AEd-eA-xen" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Wv5-QF-7w7"/>
+                            <constraint firstAttribute="trailing" secondItem="AEd-eA-xen" secondAttribute="trailing" id="mq8-Uw-NP2"/>
                         </constraints>
                     </view>
                     <connections>
@@ -37,4 +50,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="compass" width="512" height="512"/>
+    </resources>
 </document>

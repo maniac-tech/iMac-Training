@@ -12,7 +12,13 @@ import MapKit
 class ViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    //function to recenter the user
+    @IBAction func userRecenter(_ sender: AnyObject) {
+        let region = MKCoordinateRegionMakeWithDistance(self.manager.location!.coordinate, 400, 400) //Adding region to be set on the map
+        self.mapView.setRegion(region, animated: true)
+    }
     var manager = CLLocationManager()
+    var update = 0 //to store the count of updates
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +37,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let region = MKCoordinateRegionMakeWithDistance(self.manager.location!, <#T##latitudinalMeters: CLLocationDistance##CLLocationDistance#>, <#T##longitudinalMeters: CLLocationDistance##CLLocationDistance#>)
+        if update<4{ //to avoid update every second:
+            let region = MKCoordinateRegionMakeWithDistance(self.manager.location!.coordinate, 400, 400) //Adding region to be set on the map
+            self.mapView.setRegion(region, animated: true)
+           update+=1
+        }
+        else{
+           self.manager.stopUpdatingLocation()
+        }
     }
 
     override func didReceiveMemoryWarning() {
