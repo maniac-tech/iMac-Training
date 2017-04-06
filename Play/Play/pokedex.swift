@@ -10,14 +10,22 @@ import UIKit
 
 class pokedex: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    
+    var caughtPokemon : [Pokemon] = []
+    var uncaughtPokemon : [Pokemon] = []
     @IBAction func mapBackButton(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil) // to get back to the previous screen
     }
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        caughtPokemon = getAllCaughtPokemon()
+        uncaughtPokemon = getAllUncaughtPokemon()
+        
+        
+        
+        
     }
     
     //this function to hide the status bar of the phone
@@ -30,15 +38,43 @@ class pokedex: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Dispose of any resources that can be recreated.
     }
     
-    //Table Functions
+    //Table Functions:
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0{
+            return "Caught Poekmons"
+        }else{
+            return "Uncaught Pokemon"
+        }
+    }
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return Int()
+        if (section==0){
+            return caughtPokemon.count
+        }
+        else{
+            return uncaughtPokemon.count
+        }
     }
     
     @available(iOS 2.0, *)
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        var pokemon : Pokemon
+        if (indexPath.section==0){
+            pokemon = self.caughtPokemon[indexPath.row]
+        }else{
+            pokemon = self.uncaughtPokemon[indexPath.row]
+        }
+        
+        cell.textLabel?.text = pokemon.name
+        cell.imageView?.image = UIImage(named: pokemon.imageFileName!)
+        return cell
     }
     
     /*

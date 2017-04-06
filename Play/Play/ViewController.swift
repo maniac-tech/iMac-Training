@@ -9,7 +9,8 @@
 import UIKit
 import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
+    var pokemon : [Pokemon] = []
 
     @IBOutlet weak var mapView: MKMapView!
     //function to recenter the user
@@ -24,6 +25,10 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         super.viewDidLoad()
         
         self.manager.delegate = self
+        self.mapView.delegate = self
+        self.manager.startUpdatingLocation()
+        
+        pokemon = bringAllPokemon() //FILLING THE POKEMON ARRAY, WHICH ARE GENERATED FROM THE CORE DATA
         
         // Checking the authorization status of the map, required for the app:
         if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse){
@@ -35,7 +40,11 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             
                 //extrating the current coordinate
                 if let coordinate = self.manager.location?.coordinate{//defined this to provide value to annotations
-                    let annotation = MKPointAnnotation()
+                    
+                    let randompokemon = Int (arc4random_uniform(UInt32(self.pokemon.count)))
+                    let pokemon = self.pokemon[randompokemon]
+                    
+                    let annotation = PokemonAnnotation(coordinate: coordinate, pokemon: pokemon)
                     annotation.coordinate = coordinate
                     //ADDING THE EQUATION BELOW:
                     annotation.coordinate.latitude += (Double (arc4random_uniform(1000))-500)/300000.0
@@ -50,6 +59,28 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             //Requesting authorization when not found:
             self.manager.requestWhenInUseAuthorization()
         }
+    }
+    
+    //function to add image to the annotation:
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        
+        //if-else condition check to decide whether it is user's location or not
+        if annotation is MKUserLocation {
+            annotationView.image = #imageLiteral(resourceName: "player.png")
+        }
+        else{
+            let pokemon = (annotation as! PokemonAnnotation).pokemon
+            annotationView.image = UIImage(named: pokemon.imageFileName!)
+        }
+        
+        //the image size maybe be larger than the screen, thus we need to adjust it into the screen by resizing it in the frame
+        var frame = annotationView.frame
+        frame.size.width = 40
+        frame.size.height = 40
+        annotationView.frame = frame
+        
+        return annotationView
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -87,6 +87,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="LV3-ZB-Owo" id="Hp3-hc-0Bj"/>
+                                    <outlet property="delegate" destination="LV3-ZB-Owo" id="vdP-hN-kwX"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDb-j9-dYR">
                                 <constraints>
@@ -109,6 +113,9 @@
                             <constraint firstItem="BgQ-KF-POq" firstAttribute="leading" secondItem="0CI-Eg-B0P" secondAttribute="leading" id="zxZ-vB-vQd"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="BgQ-KF-POq" id="1jV-lx-WjK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="552-2s-mNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
