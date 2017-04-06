@@ -29,6 +29,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         if (CLLocationManager.authorizationStatus() == .authorizedWhenInUse){
             self.mapView.showsUserLocation = true //this function shows the current location as blue stop on the map
             self.manager.startUpdatingLocation() //it will start to look for updates on the location
+            //defining the timer to spawn the pokemon after a particular value:
+            Timer.scheduledTimer(withTimeInterval: 4, repeats: true, block:{
+                (timer) in
+            
+                //extrating the current coordinate
+                if let coordinate = self.manager.location?.coordinate{//defined this to provide value to annotations
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = coordinate
+                    //ADDING THE EQUATION BELOW:
+                    annotation.coordinate.latitude += (Double (arc4random_uniform(1000))-500)/300000.0
+                    annotation.coordinate.longitude += (Double (arc4random_uniform(1000))-500)/300000.0
+                    
+                    self.mapView.addAnnotation(annotation)
+                }
+                }
+            )
         }
         else {
             //Requesting authorization when not found:
@@ -37,7 +53,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if update<4{ //to avoid update every second:
+        //to avoid update every second:
+        if update<4{
             let region = MKCoordinateRegionMakeWithDistance(self.manager.location!.coordinate, 400, 400) //Adding region to be set on the map
             self.mapView.setRegion(region, animated: true)
            update+=1
