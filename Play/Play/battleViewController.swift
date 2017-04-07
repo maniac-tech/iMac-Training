@@ -24,7 +24,10 @@ class battleViewController: UIViewController {
         let skView = self.view as! SKView
         skView.showsFPS = false
         skView.showsNodeCount = false
+        skView.ignoresSiblingOrder = false //RENDERING OF THE CHILD INTO THE PARENT IN GAME ENGINE
         
+        scene.pokemon = pokemon
+        scene.scaleMode = .aspectFit
         skView.presentScene(scene) //loading the battlescene into the ViewController
     }
 

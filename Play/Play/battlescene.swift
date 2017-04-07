@@ -19,5 +19,6 @@ public class battlescene : SKScene, SKPhysicsContactDelegate{
     
     public override func didMove(to view: SKView) {
         print ("Gotta catch 'em all")
+        print(pokemon.name)
     }
 }
