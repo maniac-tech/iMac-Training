@@ -83,6 +83,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDele
         return annotationView
     }
     
+    //onclick action on the annotation:
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        //we write didselect becasue we are implementing a click action, where click = select + deselect:
+        mapView.deselectAnnotation(view.annotation!, animated: true)
+        
+        if view.annotation is MKUserLocation{
+            return
+        }
+        
+        //we need to set the annotation's region when the user clicks the respective annotation:
+        let region = MKCoordinateRegionMakeWithDistance((view.annotation?.coordinate)!, 150, 150)
+        self.mapView.setRegion(region, animated: true)
+        
+        if let coordinate = self.manager.location?.coordinate{
+            if MKMapRectContainsPoint(mapView.visibleMapRect, MKMapPointForCoordinate(coordinate)){
+                print("In Range")
+            }
+            else{
+                print("Out of Range")
+            }
+        }
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //to avoid update every second:
         if update<4{
