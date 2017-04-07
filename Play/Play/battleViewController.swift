@@ -29,6 +29,13 @@ class battleViewController: UIViewController {
         scene.pokemon = pokemon
         scene.scaleMode = .aspectFit
         skView.presentScene(scene) //loading the battlescene into the ViewController
+        
+        //Notification:
+        NotificationCenter.default.addObserver(self, selector: #selector(returnToMapViewController), name: NSNotification.Name("CloserBattle"), object: nil)
+    }
+    
+    func returnToMapViewController() {
+        self.dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
