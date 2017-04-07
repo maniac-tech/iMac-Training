@@ -19,6 +19,16 @@ public class battlescene : SKScene, SKPhysicsContactDelegate{
     
     public override func didMove(to view: SKView) {
         print ("Gotta catch 'em all")
-        print(pokemon.name)
+        //print(pokemon.name)
+        
+        //Background code:
+        let battleBg = SKSpriteNode (imageNamed: "bggg")
+        battleBg.size = self.size
+        battleBg.position = CGPoint(x: self.size.width/2, y: self.size.height/2)
+        battleBg.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        battleBg.zPosition = -1
+        
+        //adding the battle background to the scene:
+        self.addChild(battleBg)
     }
 }
